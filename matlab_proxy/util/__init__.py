@@ -228,11 +228,11 @@ def get_access_url(app):
     access_protocol = "https" if ssl_context else "http"
 
     # When host interface is set to 0.0.0.0, in a windows system, the server will not be accessible.
-    # Setting the value to fqdn, will allow it be remotely and locally accessible.
+    # Setting the value to 127.0.0.1, will allow it be remotely and locally accessible.
 
     # NOTE: When windows container support is introduced this will need to be tweaked accordingly.
     if host_interface == "0.0.0.0" and system.is_windows():
-        host_interface = '127.0.0.1'
+        host_interface = "127.0.0.1"
 
     url = f"{access_protocol}://{host_interface}:{port}{base_url}"
 
