@@ -659,7 +659,10 @@ def non_default_host_interface_fixture(monkeypatch):
 # This order will set the test_server with appropriate values.
 def test_get_access_url_non_dev(non_default_host_interface, non_test_env, test_server):
     """Test to check access url to not be 127.0.0.1 in non-dev mode"""
-    assert "127.0.0.1" not in util.get_access_url(test_server.app)
+    if util.system.is_posix():
+        assert "0.0.0.0" in util.get_access_url(test_server.app)
+    elif util.system.is_windows():
+        assert "127.0.0.0.1" in util.get_access_url(test_server.app)
 
 
 @pytest.fixture(name="set_licensing_info_mock_fetch_single_entitlement")
